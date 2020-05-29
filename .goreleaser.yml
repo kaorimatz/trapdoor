@@ -1,0 +1,16 @@
+before:
+  hooks:
+  - yarn build --mode production
+  - go generate
+builds:
+- flags:
+  - -tags
+  - embed
+  ldflags:
+  - -extldflags -static -s -w
+  - -X main.GitCommit={{.FullCommit}}
+  - -X main.Version={{.Version}}
+  env:
+  - CGO_ENABLED=0
+signs:
+  - artifacts: checksum

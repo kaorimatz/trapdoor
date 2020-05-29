@@ -1,0 +1,20 @@
+- id: 1
+  name: sh
+  endpoint: ws://agent-sh:3002
+  proxy:
+    endpoint: ws://127.0.0.1:3001
+  roles:
+  - admin
+  idleTimeout: 1m
+  sessionTTL: 1h
+  tokenTTL: 5m
+- id: 2
+  name: irb
+  endpoint: ws://agent-irb:3002
+  proxy:
+    endpoint: ws://127.0.0.1:3001
+  roles:
+  - admin
+  idleTimeout: 1m
+  sessionTTL: 1h
+  tokenTTL: 5m

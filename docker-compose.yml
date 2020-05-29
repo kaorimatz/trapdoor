@@ -1,0 +1,129 @@
+version: '3'
+services:
+  console:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    volumes:
+      - ./example/targets.yml:/targets.yml
+    environment:
+      TRAPDOOR_AZURE_TENANT_ID:
+      TRAPDOOR_COOKIE_SECRET: 0123456789
+      TRAPDOOR_OAUTH2_CLIENT_ID:
+      TRAPDOOR_OAUTH2_CLIENT_SECRET:
+      TRAPDOOR_OAUTH2_PROVIDER: azure
+      TRAPDOOR_TOKEN_PRIVATE_KEY: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpQIBAAKCAQEA1W2D3ZzfcG22HHqt8foVdJjNoSMdUYzYOKvAQ71Uqnc1R1yy
+        zQI/CeSOy0LiFxo/W8g9jiCTaHY3OKKNqn3vFvUyBXIwX0UvC8DGE5X48cyVp8yC
+        nYMITDeFW8LA44sIbyjBflPelbN3R7KSWAe6Jf8+Fg2GWp/YQ3ZJmZAFv1Dntwjc
+        AZmhKHlF40VtOXa+iha6FeBvXutlrd5QkZQ499G/7RhaBZGML5HtbqIxbgWiU78j
+        dRuiiireXzHpICbl/37K3mbbg8SxQLqe9Ibz/SykkWR1oiz90YJEQLrvCg5mNX8R
+        dxHPCbGwI3Qxi0FErESyc9UHupg6v0qJDlmEAQIDAQABAoIBAGHChytEhuhVqJwE
+        6ZY0Cg3dTBsqHWzUSdozeZ7No3Ftpx7n7BKRm9RpN6sNGMiiQjFFWES40SyBMawk
+        cSWOB60JZP8vnc6VvwXwKAqioGQJZOd2esGxWmSm7dPpMjdH4PYhwfeebQ8/JDzY
+        I8Zky7RJ5ONvEIKEQygrj2zilm9Zxgjvxw18TKrneY0NTf9VoZXHiw3wHWQwoMP4
+        eCgRzEC6iAi5G8deN0TMkxuENIlivZB+lEpA/lB1iMbto3LWmNT6nARk7aBPIMfJ
+        CXJvLrM5/omgmUGwMNMnDqDlz7nWjHQ8QVhPyaKaxSId2FhjyePA6oDlwcgaXDmb
+        CknE1H0CgYEA+yf70euSZSpuxbCn8V3YZi6al1AgFDMRCxviOf5ZiU8p4Xfx7AYT
+        97DhLuehtjKS2ETzCpZ5zlr4Fjxp7HctnP/gD+jRwg5b8nETqJFrw9MTYbi+TWrJ
+        XCQdBRdzO+l278ztUS9a8E7y28zpB9l9EnOx706vjq7r7OtsHhddz9sCgYEA2YtB
+        8mBLhlQe6aqsMa9cmp/aLLzN3JAh+vMxT1dJa3B77TNDGKepUqrq59GeXffEs1Qw
+        FJk86bjZWOtNr0YGFqCswBFIF5A7SmwzdUmK6VP01PEHfMSzpQ9bWy82Nk6UmDtq
+        mloBcFCjLyLL2hEs/ll3mT+7985Ul2gq1DoHYFMCgYEAx6lto+BmrU4iab6ahGNa
+        mUELXKcyGVzPe8la+0ec3m+0l63HAR+D2DEhkyxJfpKN8qg9nnkptEbVWrgEbRwB
+        gwJXmc44ktDff8ktG6EfzrmKevFnOBxgn4OGHnoZ/dMH3nNHZncDEG9y2hH4X2ki
+        6PxYxCoFnqSoodw2Q2XICmkCgYEA06ReqT4z2+DVHkGUOtY/gpMIAERDB1UWKf4V
+        N/pUjHknp9Iacc8TtUBhPt05dHQLYugByth2YXAbzB1IO8AlRjhVOJrXh00j0bjI
+        q0+8HFo4tD42KZV4rJnvKBwbYuQ6Pox3nuj3w1xAFiiFKIdTPbSu3WIbLfAHbjHC
+        kSxPZs8CgYEA2Ixyeap1/17/fN3g2Iy1Rj0AiG8G+WZg+ZJY2TEXUFK/glr0GHjy
+        Fph+UuPv999UhQwMhMR1Vr3AM6dZ2qrcpephcvahb/KudE0ploXypiV/dPE/+pRh
+        Lrhg15BZt7GcJQmKmAyBATWGFdc8KY8bDnsyWlSsGLroj5GImXLzsnE=
+        -----END RSA PRIVATE KEY-----
+    command: ["console", "--targets-file=/targets.yml"]
+  proxy:
+    build:
+      context: .
+    ports:
+      - 3001:3001
+    environment:
+      TRAPDOOR_TOKEN_PRIVATE_KEY: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpQIBAAKCAQEA1W2D3ZzfcG22HHqt8foVdJjNoSMdUYzYOKvAQ71Uqnc1R1yy
+        zQI/CeSOy0LiFxo/W8g9jiCTaHY3OKKNqn3vFvUyBXIwX0UvC8DGE5X48cyVp8yC
+        nYMITDeFW8LA44sIbyjBflPelbN3R7KSWAe6Jf8+Fg2GWp/YQ3ZJmZAFv1Dntwjc
+        AZmhKHlF40VtOXa+iha6FeBvXutlrd5QkZQ499G/7RhaBZGML5HtbqIxbgWiU78j
+        dRuiiireXzHpICbl/37K3mbbg8SxQLqe9Ibz/SykkWR1oiz90YJEQLrvCg5mNX8R
+        dxHPCbGwI3Qxi0FErESyc9UHupg6v0qJDlmEAQIDAQABAoIBAGHChytEhuhVqJwE
+        6ZY0Cg3dTBsqHWzUSdozeZ7No3Ftpx7n7BKRm9RpN6sNGMiiQjFFWES40SyBMawk
+        cSWOB60JZP8vnc6VvwXwKAqioGQJZOd2esGxWmSm7dPpMjdH4PYhwfeebQ8/JDzY
+        I8Zky7RJ5ONvEIKEQygrj2zilm9Zxgjvxw18TKrneY0NTf9VoZXHiw3wHWQwoMP4
+        eCgRzEC6iAi5G8deN0TMkxuENIlivZB+lEpA/lB1iMbto3LWmNT6nARk7aBPIMfJ
+        CXJvLrM5/omgmUGwMNMnDqDlz7nWjHQ8QVhPyaKaxSId2FhjyePA6oDlwcgaXDmb
+        CknE1H0CgYEA+yf70euSZSpuxbCn8V3YZi6al1AgFDMRCxviOf5ZiU8p4Xfx7AYT
+        97DhLuehtjKS2ETzCpZ5zlr4Fjxp7HctnP/gD+jRwg5b8nETqJFrw9MTYbi+TWrJ
+        XCQdBRdzO+l278ztUS9a8E7y28zpB9l9EnOx706vjq7r7OtsHhddz9sCgYEA2YtB
+        8mBLhlQe6aqsMa9cmp/aLLzN3JAh+vMxT1dJa3B77TNDGKepUqrq59GeXffEs1Qw
+        FJk86bjZWOtNr0YGFqCswBFIF5A7SmwzdUmK6VP01PEHfMSzpQ9bWy82Nk6UmDtq
+        mloBcFCjLyLL2hEs/ll3mT+7985Ul2gq1DoHYFMCgYEAx6lto+BmrU4iab6ahGNa
+        mUELXKcyGVzPe8la+0ec3m+0l63HAR+D2DEhkyxJfpKN8qg9nnkptEbVWrgEbRwB
+        gwJXmc44ktDff8ktG6EfzrmKevFnOBxgn4OGHnoZ/dMH3nNHZncDEG9y2hH4X2ki
+        6PxYxCoFnqSoodw2Q2XICmkCgYEA06ReqT4z2+DVHkGUOtY/gpMIAERDB1UWKf4V
+        N/pUjHknp9Iacc8TtUBhPt05dHQLYugByth2YXAbzB1IO8AlRjhVOJrXh00j0bjI
+        q0+8HFo4tD42KZV4rJnvKBwbYuQ6Pox3nuj3w1xAFiiFKIdTPbSu3WIbLfAHbjHC
+        kSxPZs8CgYEA2Ixyeap1/17/fN3g2Iy1Rj0AiG8G+WZg+ZJY2TEXUFK/glr0GHjy
+        Fph+UuPv999UhQwMhMR1Vr3AM6dZ2qrcpephcvahb/KudE0ploXypiV/dPE/+pRh
+        Lrhg15BZt7GcJQmKmAyBATWGFdc8KY8bDnsyWlSsGLroj5GImXLzsnE=
+        -----END RSA PRIVATE KEY-----
+    command: ["proxy", "--fluentd-address=fluentd"]
+    depends_on:
+      - fluentd
+  fluentd:
+    image: fluent/fluentd
+    volumes:
+      - ./example/fluent.conf:/fluentd/etc/fluent.conf:ro
+  agent:
+    build:
+      context: .
+    command: ["--version"]
+    volumes:
+      - agent-trapdoor:/trapdoor:ro
+  agent-sh:
+    image: busybox
+    environment:
+      TRAPDOOR_TOKEN_PUBLIC_KEY: |
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1W2D3ZzfcG22HHqt8foV
+        dJjNoSMdUYzYOKvAQ71Uqnc1R1yyzQI/CeSOy0LiFxo/W8g9jiCTaHY3OKKNqn3v
+        FvUyBXIwX0UvC8DGE5X48cyVp8yCnYMITDeFW8LA44sIbyjBflPelbN3R7KSWAe6
+        Jf8+Fg2GWp/YQ3ZJmZAFv1DntwjcAZmhKHlF40VtOXa+iha6FeBvXutlrd5QkZQ4
+        99G/7RhaBZGML5HtbqIxbgWiU78jdRuiiireXzHpICbl/37K3mbbg8SxQLqe9Ibz
+        /SykkWR1oiz90YJEQLrvCg5mNX8RdxHPCbGwI3Qxi0FErESyc9UHupg6v0qJDlmE
+        AQIDAQAB
+        -----END PUBLIC KEY-----
+    command: ["/trapdoor/trapdoor", "agent", "--window-title=sh", "sh"]
+    volumes:
+      - agent-trapdoor:/trapdoor:ro
+    user: nobody
+    read_only: true
+  agent-irb:
+    image: ruby:alpine
+    environment:
+      TRAPDOOR_TOKEN_PUBLIC_KEY: |
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1W2D3ZzfcG22HHqt8foV
+        dJjNoSMdUYzYOKvAQ71Uqnc1R1yyzQI/CeSOy0LiFxo/W8g9jiCTaHY3OKKNqn3v
+        FvUyBXIwX0UvC8DGE5X48cyVp8yCnYMITDeFW8LA44sIbyjBflPelbN3R7KSWAe6
+        Jf8+Fg2GWp/YQ3ZJmZAFv1DntwjcAZmhKHlF40VtOXa+iha6FeBvXutlrd5QkZQ4
+        99G/7RhaBZGML5HtbqIxbgWiU78jdRuiiireXzHpICbl/37K3mbbg8SxQLqe9Ibz
+        /SykkWR1oiz90YJEQLrvCg5mNX8RdxHPCbGwI3Qxi0FErESyc9UHupg6v0qJDlmE
+        AQIDAQAB
+        -----END PUBLIC KEY-----
+    command: ["/trapdoor/trapdoor", "agent", "--window-title=irb", "irb"]
+    volumes:
+      - agent-trapdoor:/trapdoor:ro
+    user: nobody
+    read_only: true
+volumes:
+  agent-trapdoor:

@@ -1,0 +1,6 @@
+/.env
+/assets_vfsdata.go
+/dist/
+/js/
+/node_modules/
+/trapdoor
